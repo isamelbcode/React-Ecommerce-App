@@ -1,45 +1,68 @@
-import React, { Component } from 'react';
-import {storeProducts, detailProduct} from './data';
+import React, { Component } from "react";
+import { storeProducts, detailProduct } from "./data";
 
 const ProductContext = React.createContext();
 //Two components: Provider and Consumer
 
-
-
 class ProductProvider extends Component {
-    state={
-        products:[], 
-        detailProduct:detailProduct
-    };
+  state = {
+    products: [],
+    detailProduct: detailProduct,
+    cart:[]
+  };
 
-    componentDidMount(){
-        this.setProducts();
-    }
+  componentDidMount() {
+    this.setProducts();
+  }
 
-    setProducts = () => {
-        let tempProducts =[];
-        storeProducts.forEach(item => {
-            const singleItem = {...item};
-            tempProducts = [...tempProducts,singleItem];
-        });
-        this.setState(()=>{
-            return { products:tempProducts };
-        });
-    };
-    handleDetail = () => {
-        console.log('Hello from detail');
-    }
-    addToCart = (id) => {
-        console.log(`Hello from add to cart.id is ${id}`);
-    }
+  setProducts = () => {
+    let tempProducts = [];
+    storeProducts.forEach(item => {
+      const singleItem = { ...item };
+      tempProducts = [...tempProducts, singleItem];
+    });
+    this.setState(() => {
+      return { products: tempProducts };
+    });
+  };
+
+  getItem = id => {
+      const product = this.state.products.find(item => item.id ===id);
+      return product;
+  }
+
+  handleDetail = id => {
+    const product = this.getItem(id);
+    this.setState(()=>{
+        return {detailProduct:product}
+    })
+  };
+  addToCart = id => {
+    let tempProducts = [...this.state.products];
+    const index = tempProducts.indexOf(this.getItem(id));
+    const product = tempProducts[index];
+    product.inCart = true;
+    product.count = 1;
+    const price = product.price;
+    product.total = price;
+    this.setState(()=>{
+        return { products:tempProducts,cart:[...this.state.cart,product] };
+
+    }, 
+    ()=>{console.log(this.state)
+    });
+
+  };
 
   render() {
     return (
-      <ProductContext.Provider value={{
-        ...this.state,
-        handleDetail:this.handleDetail,
-        addToCart:this.addToCart, 
-      }}>
+      <ProductContext.Provider
+        value={{
+          ...this.state,
+          handleDetail: this.handleDetail,
+          addToCart: this.addToCart
+        }}
+      >
         {this.props.children}
       </ProductContext.Provider>
     );
