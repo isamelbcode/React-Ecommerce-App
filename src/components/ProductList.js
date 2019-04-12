@@ -19,7 +19,7 @@ export default class ProductList extends Component {
                   return value.products.map( product => {
                     return <Product key={product.id} product={product}/>
                   })
-                  console.log(value);
+                  
                 }}
               </ProductConsumer>
             </div>
