@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function Title({name, title}) {
   return (
-    <div className="row">
+    <div className="row p-5">
       <div className="column-10mx-auto my-2 text-center text-title">
       <h1 className="text-capitalize font-weight-bold">
         {name} <strong className="text-blue">{title}

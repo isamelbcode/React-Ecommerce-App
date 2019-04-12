@@ -71,15 +71,15 @@ closeModal = () =>{
     });
 }
 
-increment = (id) => {
+increment = id => {
     console.log('this is increment method');
 }
 
-decrement = (id) => {
+decrement = id => {
     console.log('this is decrement method');
 }
 
-removeItem = (id) => {
+removeItem = id => {
     console.log('item successfully removed');
 }
 
@@ -94,10 +94,10 @@ clearCart = () => {
           ...this.state,
           handleDetail: this.handleDetail,
           addToCart: this.addToCart,
-          openModal:this.openModal,
-          closeModal:this.closeModal,
-          increment:this.increment,
-          decrement:this.decrement,
+          openModal: this.openModal,
+          closeModal: this.closeModal,
+          increment: this.increment,
+          decrement: this.decrement,
           removeItem: this.removeItem,
           clearCart: this.clearCart
         }}

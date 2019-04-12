@@ -3,6 +3,7 @@ import Title from '../Title';
 import CartColumns from './CartColumns';
 import EmptyCart from './EmptyCart';
 import { ProductConsumer } from '../../context';
+import CartList from './CartList';
 
 export default class Cart extends Component {
   render() {
@@ -10,16 +11,17 @@ export default class Cart extends Component {
       <section>
       <ProductConsumer>
         {value => {
-          const {cart} = value;
-          if(cart.length>0){
+          const { cart } = value;
+          if (cart.length > 0) {
             return (
-              <React.Fragement>
-              <Title name="your" title="cart" />
+              <React.Fragment>
+              <Title className="center" name="your" title="cart" />
               <CartColumns />
-              </React.Fragement>
+              <CartList value={value} />
+              </React.Fragment>
             );
           } else {
-            return <EmptyCart />
+            return <EmptyCart />;
           }
         }}   
         </ProductConsumer>
